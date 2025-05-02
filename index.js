@@ -24,7 +24,7 @@ device.on('connect', function () {
     ]
   };
 
-  // Subscribe to topic to receive instructions or data
+
   device.subscribe("output/01", {}, (err, granted) => {
     if (err) {
       console.error("Subscribe error:", err);
@@ -33,7 +33,7 @@ device.on('connect', function () {
     }
   });
 
-  // Publish data to data/int01
+ 
   device.publish("data", JSON.stringify(payload), {}, (err) => {
     if (err) {
       console.error("Publish error:", err);
@@ -43,9 +43,9 @@ device.on('connect', function () {
   });
 });
 
-// Listen for incoming messages
+
 device.on('message', function (topic, message) {
-  // Parse the message to a JSON object if it's a string
+
   let messageContent;
   try {
     messageContent = JSON.parse(message.toString());
@@ -54,17 +54,17 @@ device.on('message', function (topic, message) {
     return;
   }
 
-  // Format the output for cleaner terminal view
+
   console.log('\n==========================================');
-  console.log(`Message received on topic: \x1b[34m${topic}\x1b[0m`);  // Blue color for topic
+  console.log(`Message received on topic: \x1b[34m${topic}\x1b[0m`);  
   console.log('------------------------------------------');
-  console.log('Timestamp:', `\x1b[32m${messageContent.timestamp}\x1b[0m`);  // Green color for timestamp
+  console.log('Timestamp:', `\x1b[32m${messageContent.timestamp}\x1b[0m`);  
   console.log('Allocated Times:');
   
   messageContent.allocated_times.forEach(camera => {
-    console.log(`  - Camera ID: \x1b[33m${camera.camera_id}\x1b[0m`);  // Yellow color for camera_id
-    console.log(`    Green Duration: \x1b[32m${camera.green_duration}s\x1b[0m`);  // Green for green_duration
-    console.log(`    Red Duration: \x1b[31m${camera.red_duration}s\x1b[0m`);  // Red for red_duration
+    console.log(`  - Camera ID: \x1b[33m${camera.camera_id}\x1b[0m`); 
+    console.log(`    Green Duration: \x1b[32m${camera.green_duration}s\x1b[0m`);  
+    console.log(`    Red Duration: \x1b[31m${camera.red_duration}s\x1b[0m`);  
     console.log('------------------------------------------');
   });
 
@@ -72,8 +72,8 @@ device.on('message', function (topic, message) {
 });
 
 var device2 = awsIot.device({
-  keyPath: "traffic_controller_int02-private.pem",  // Use same keypath for now, change later
-  certPath: "traffic_controller_int02-certificate.pem.crt.cert", // Use same cert path for now, change later
+  keyPath: "traffic_controller_int02-private.pem",  
+  certPath: "traffic_controller_int02-certificate.pem.crt.cert", 
   caPath: "AmazonRootCA1.pem",
   host: "a3plgd8pfckwr2-ats.iot.ap-southeast-1.amazonaws.com",
   debug: true
@@ -84,7 +84,7 @@ device2.on('connect', function () {
   console.log("Connected to AWS IoT - Device 2");
 
   const payload = {
-    intersection_id: "02",  // Change intersection_id for device 2
+    intersection_id: "02",  
     traffic_num: 3,
     timestamp: timestamp,
     cameras: [
@@ -94,7 +94,6 @@ device2.on('connect', function () {
     ]
   };
 
-  // Subscribe to topic to receive instructions or data for device 2
   device2.subscribe("output/02", {}, (err, granted) => {
     if (err) {
       console.error("Subscribe error:", err);
@@ -103,7 +102,6 @@ device2.on('connect', function () {
     }
   });
 
-  // Publish data to data
   device2.publish("data", JSON.stringify(payload), {}, (err) => {
     if (err) {
       console.error("Publish error:", err);
@@ -113,9 +111,8 @@ device2.on('connect', function () {
   });
 });
 
-// Listen for incoming messages for device2
+
 device2.on('message', function (topic, message) {
-  // Parse the message to a JSON object if it's a string
   let messageContent;
   try {
     messageContent = JSON.parse(message.toString());
@@ -124,17 +121,16 @@ device2.on('message', function (topic, message) {
     return;
   }
 
-  // Format the output for cleaner terminal view
   console.log('\n==========================================');
-  console.log(`Message received on topic: \x1b[34m${topic}\x1b[0m`);  // Blue color for topic
+  console.log(`Message received on topic: \x1b[34m${topic}\x1b[0m`);  
   console.log('------------------------------------------');
-  console.log('Timestamp:', `\x1b[32m${messageContent.timestamp}\x1b[0m`);  // Green color for timestamp
+  console.log('Timestamp:', `\x1b[32m${messageContent.timestamp}\x1b[0m`);  
   console.log('Allocated Times:');
   
   messageContent.allocated_times.forEach(camera => {
-    console.log(`  - Camera ID: \x1b[33m${camera.camera_id}\x1b[0m`);  // Yellow color for camera_id
-    console.log(`    Green Duration: \x1b[32m${camera.green_duration}s\x1b[0m`);  // Green for green_duration
-    console.log(`    Red Duration: \x1b[31m${camera.red_duration}s\x1b[0m`);  // Red for red_duration
+    console.log(`  - Camera ID: \x1b[33m${camera.camera_id}\x1b[0m`);  
+    console.log(`    Green Duration: \x1b[32m${camera.green_duration}s\x1b[0m`);  
+    console.log(`    Red Duration: \x1b[31m${camera.red_duration}s\x1b[0m`);  
     console.log('------------------------------------------');
   });
 
