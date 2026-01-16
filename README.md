@@ -6,3 +6,6 @@ The main objective of this project is to solve traffic congestion by allowing dy
 For example, congested road will be allocated longer green light duration to allow traffic to smoothen quickly.
 Traffic light at the same junction acts as a node, each node will send traffic condition based on number of cars detected in 100m to IoT Core using Pub/Sub model.
 Lambda will then receive and process signals from all nodes at the same junction, then based on processing logic to allocate red and green light duration to all nodes at the same junction.
+
+
+All pem certs are expired
